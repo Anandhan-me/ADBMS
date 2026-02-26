@@ -186,9 +186,22 @@ mysql> select*from order_details;
 mysql> set autocommit=1;
 Query OK, 0 rows affected (0.00 sec)
 
-mysql> create USER 'user1' @'local host' identifiedby'1234';
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'identifiedby'1234'' at line 1
-mysql> ^Ceate USER 'user1' @ 'local host' identified by '1234'
-mysql> sele
+mysql> create USER 'user1'@'localhost' identified by'1234';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> grant all privileges on order_details to 'user1'@'localhost';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show grants for 'user1'@'localhost';
++----------------------------------------------------------------------+
+| Grants for user1@localhost                                           |
++----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user1`@`localhost`                            |
+| GRANT ALL PRIVILEGES ON `tcl`.`order_details` TO `user1`@`localhost` |
++----------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke insert,delete on order_details from 'user1'@'localhost';
+Query OK, 0 rows affected (0.02 sec)
 
 
